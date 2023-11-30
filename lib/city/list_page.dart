@@ -38,7 +38,7 @@ class CityListPage extends StatelessWidget {
                 // TODO: 詳細画面に遷移する
                 Navigator.of(context).push<void>(
                   MaterialPageRoute(
-                    builder: (context) => const CityDetailPage(),
+                    builder: (context) => CityDetailPage(city: city),
                   ),
                 );
               },
