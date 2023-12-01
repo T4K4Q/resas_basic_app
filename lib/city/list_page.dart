@@ -27,7 +27,7 @@ class _CityListPageState extends State<CityListPage> {
 
     _citiesFuture = http
         .get(
-          Uri.http(host, endpoint),
+          Uri.https(host, endpoint),
           headers: headers,
         )
         .then((res) => res.body);
@@ -44,15 +44,10 @@ class _CityListPageState extends State<CityListPage> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              // 1-1. snapshot.dataの`result`というkeyにデータが入っているのでListとして扱います
               final json = jsonDecode(snapshot.data!)['result'] as List;
-              // 1-2. Listの各要素はkey,value構造をしているのでkey: String, value: dynamicとして変換します
               final items = json.cast<Map<String, dynamic>>();
-              // 2. ListViewをListView.builderに書き換えてitemsのデータを使う
               return ListView.builder(
-                // 取得したデータの数を指定
                 itemCount: items.length,
-                // itemBuilderで返却されるWidgetがUIに表示されます
                 itemBuilder: (context, index) {
                   final item = items[index];
                   return ListTile(
